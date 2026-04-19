@@ -1,5 +1,4 @@
 import './style.css'
-import { DiscordSDK } from '@discord/embedded-app-sdk'
 
 // Curriculum data — all 65 days organized by week
 const curriculum = [
@@ -415,19 +414,4 @@ const totalDays = 65;
 const firstDay = 1;
 document.getElementById('progressLabel').textContent = `Day ${firstDay} – ${totalDays} total`;
 
-// Discord SDK — try to get channel context (non-blocking)
-const urlParams = new URLSearchParams(window.location.search);
-const clientId = urlParams.get('client_id') || import.meta.env.VITE_DISCORD_CLIENT_ID;
-
-if (clientId) {
-  try {
-    const discordSdk = new DiscordSDK(clientId);
-    discordSdk.ready().then(() => {
-      const channelId = discordSdk.channelId;
-      const guildId = discordSdk.guildId;
-      if (channelId) {
-        console.log('Running in Discord channel:', channelId);
-      }
-    }).catch(() => {});
-  } catch (e) {}
-}
+// No Discord SDK — standalone build
